@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz Recap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #recap-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff8c00;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        fieldset {
+            border: none;
+            background-color: #fafad2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #ffd700;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        a {
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div id="recap-container">
+    <h1>Recapitulatif du Quizz</h1>
+    <p>Félicitations, <span th:text="${pseudo}"></span>! Voici le récapitulatif de ta session:</p>
+
+    <fieldset>
+        <legend>Récapitulatif des questions et réponses :</legend>
+        <table>
+            <thead>
+            <tr>
+                <th>Question</th>
+                <th>Ta réponse</th>
+                <th>Mauvaise Réponse</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over each question -->
+            <tr th:each="question : ${quizz.quizzes}">
+                <td th:text="${question.question}"></td>
+                <td th:text="${question.answer}"></td>
+                <td th:text="${question.badAnswers}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>Ton score final est de : <span th:text="${score}"></span> points</p>
+    </fieldset>
+
+    <a href="http://localhost:8080/connexion">C'est reparti pour un autre Quizz !</a>
+</div>
+
+</body>
+</html>

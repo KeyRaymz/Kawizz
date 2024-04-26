@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hapi Quizz Session</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        fieldset {
+            border: none;
+            background-color: #fafad2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h1>Début du quizz</h1>
+    <p th:text="|Bonjour, ${pseudo} , il est temps de répondre aux questions!"></p>
+
+    <form action="#" th:action="@{/quizz}" method="POST">
+        <fieldset>
+            <p>La chance appartient à ceux qui tendent la main, voici ta question:</p>
+            <p th:text="${questionencours}"></p>
+
+            <fieldset>
+                <legend>Réponses possibles :</legend>
+                <!-- Utilisation d'une boucle Thymeleaf pour générer dynamiquement les réponses -->
+                <div th:each="response, iterStat : ${reponsesQuestion}">
+                    <input type="checkbox" id="'answer' + ${iterStat.index + 1}" name="repuser" th:value="${response}" />
+                    <label th:for="'answer' + ${iterStat.index + 1}" th:text="${response}"></label>
+                    <br>
+                </div>
+            </fieldset>
+
+            <p>Index de la question : <span th:text="${index + 1}"></span></p>
+            <p>Nombre de questions : <span th:text="${tailleListe}"></span></p>
+
+            <input type="submit" class="button" name="valider" value="Valider votre réponse" />
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>
